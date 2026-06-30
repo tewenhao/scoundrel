@@ -34,7 +34,7 @@ public class Player {
         else {
             if (this.equippedWeapon == null) {
                 throw new NoWeaponEquippedException();
-            } else if (this.equippedWeapon.getHighestMonsterAttacked() <= monster.getOrderedValue()) {
+            } else if (this.equippedWeapon.getLowestMonsterAttacked() <= monster.getOrderedValue()) {
                 throw new WeaponSlayedLowerMonsterException();
             } else try {
                 this.equippedWeapon.updateMonsterAttacked(monster);

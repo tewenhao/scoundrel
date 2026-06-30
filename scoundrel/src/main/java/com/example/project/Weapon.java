@@ -15,7 +15,7 @@ public class Weapon extends Card {
         this.lowestMonsterAttacked = 15;
     }
 
-    public int getlowestMonsterAttacked () {
+    public int getLowestMonsterAttacked () {
         // 15 - no monster attacked before
         // since 14 is the highest value (Ace)
         return this.lowestMonsterAttacked;
