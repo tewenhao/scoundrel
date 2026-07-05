@@ -9,7 +9,8 @@ public abstract class Card {
         this.orderedValue = orderedValue; // values go from 2 to 14
     }
 
-    public String getCardName() {
+    @Override
+    public String toString() {
         String cardRank = switch (this.orderedValue) {
             case 11 -> "Jack";
             case 12 -> "Queen";
