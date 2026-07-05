@@ -8,16 +8,15 @@ import java.util.List;
 import java.util.Collections;
 
 /*
- * Deck of cards class useful. But we should only have one deck. So singleton.
+ * While there should only be one deck of cards per game
+ * a singleton implementation doesn't allow multiple games to spawn
 */
 public class Deck {
-    private static Deck mInstance = null;
-
     private final Queue<Card> drawPile;
     private final List<Card> dungeonRoom = new ArrayList<>(4);
     private final List<Card> discardPile = new ArrayList<>();
 
-    private Deck () {
+    public Deck () {
         // one time initialisation of drawPile
         List<Card> freshCards = new ArrayList<Card>();
 
@@ -34,14 +33,6 @@ public class Deck {
         Collections.shuffle(freshCards);
 
         this.drawPile = new ArrayDeque<Card>(freshCards);
-    }
-
-    public static Deck getInstance () {
-        if (mInstance == null) {
-            mInstance = new Deck();
-        }
-
-        return mInstance;
     }
 
     public void fillRoom () {
