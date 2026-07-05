@@ -18,7 +18,7 @@ public abstract class Card {
             default -> String.valueOf(this.orderedValue);
         };
         
-        return cardRank + this.cardSuit.toString();
+        return cardRank + " of " + this.cardSuit.toString();
     }
 
     public int getOrderedValue() {
