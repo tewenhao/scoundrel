@@ -26,22 +26,12 @@ public class Player {
         this.health = Math.min(20, health + potion.getOrderedValue());
     }
 
-    public void attackMonster (Monster monster, boolean bareHands) throws NoWeaponEquippedException, WeaponSlayedLowerMonsterException {
-        if (bareHands) {
-            this.health -= monster.getOrderedValue();
-        }
+    public void attackMonsterWithHands (Monster monster) {
+        this.health -= monster.getOrderedValue();
+    }
 
-        else {
-            if (this.equippedWeapon == null) {
-                throw new NoWeaponEquippedException();
-            } else if (this.equippedWeapon.getLowestMonsterAttacked() <= monster.getOrderedValue()) {
-                throw new WeaponSlayedLowerMonsterException();
-            } else try {
-                this.equippedWeapon.updateMonsterAttacked(monster);
-                this.health -= Math.max(0, monster.getOrderedValue() - this.equippedWeapon.getOrderedValue());
-            } catch (MonsterValueTooHighException e) {
-                throw new AssertionError("This should be unreachable because of the previous clause in the if/else", e);
-            }
-        }
+    public void attackMonsterWithWeapon (Monster monster) {
+        this.equippedWeapon.updateMonsterAttacked(monster);
+        this.health -= Math.max(0, monster.getOrderedValue() - this.equippedWeapon.getOrderedValue());
     }
 }

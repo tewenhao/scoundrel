@@ -21,14 +21,12 @@ public class Weapon extends Card {
         return this.lowestMonsterAttacked;
     }
 
-    public void updateMonsterAttacked (Monster monster) throws MonsterValueTooHighException {
-        if (monster.getOrderedValue() >= this.lowestMonsterAttacked) {
-            throw new MonsterValueTooHighException();
-        }
+    public boolean canSlay (Monster monster) {
+        return this.getLowestMonsterAttacked() > monster.getOrderedValue();
+    }
 
-        else {
+    public void updateMonsterAttacked (Monster monster) {
             this.lowestMonsterAttacked = monster.getOrderedValue();
             this.slainMonsters.add(monster);
-        }
     }
 }
