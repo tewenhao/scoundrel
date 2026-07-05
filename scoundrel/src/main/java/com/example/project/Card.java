@@ -6,11 +6,19 @@ public abstract class Card {
 
     public Card (CardSuit suit, int orderedValue) {
         this.cardSuit = suit;
-        this.orderedValue = orderedValue;
+        this.orderedValue = orderedValue; // values go from 2 to 14
     }
 
     public String getCardName() {
-        return this.cardSuit.toString() + String.valueOf(this.orderedValue);
+        String cardRank = switch (this.orderedValue) {
+            case 11 -> "Jack";
+            case 12 -> "Queen";
+            case 13 -> "King";
+            case 14 -> "Ace";
+            default -> String.valueOf(this.orderedValue);
+        };
+        
+        return cardRank + this.cardSuit.toString();
     }
 
     public int getOrderedValue() {
