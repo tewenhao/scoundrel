@@ -16,24 +16,27 @@ public class ConsoleInput {
     public ConsoleInput () {};
 
     public boolean getBooleanFromUser () {
-        String result = "";
+        System.out.println("Key either Y or N ONLY. Y for Yes, N for No: ");
+        String input = scanner.next();
 
-        while (result != "Yes" || result != "No") {
-            System.out.println("Key either Y or N ONLY. Y for Yes, N for No:");
-            result = scanner.nextLine();
+        while (!input.equalsIgnoreCase("Y") && !input.equalsIgnoreCase("N")) {
+            System.out.println("\"" + input + "\" is invalid. Please type Y or N.");
+            System.out.print("Key either Y or N ONLY. Y for Yes, N for No: ");
+            input = scanner.next(); // Clear buffer and get fresh input
         }
 
-        return result == "Y";
+        return input.equalsIgnoreCase("Y");
     }
 
     public int getNumberFromUser () {
-        String result = "";
+        System.out.print("Please enter an integer: ");
 
-        // this regex checks if a string contains digits only
-        while (!result.matches("\\d+")) {
-            result = scanner.nextLine();
+        while (!scanner.hasNextInt()) {
+            String badInput = scanner.next();
+            System.out.println("\"" + badInput + "\" is not a valid integer.");
+            System.out.print("Try again. Enter an integer: ");
         }
 
-        return Integer.parseInt(result);
+        return scanner.nextInt();
     }
 }
