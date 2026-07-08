@@ -1,7 +1,6 @@
 package com.example.project;
 
 import java.util.Queue;
-import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.Collections;
 */
 public class Deck {
     private final Queue<Card> drawPile;
-    private final List<Card> dungeonRoom = new ArrayList<>(4);
+    private final List<Card> dungeonRoom = new ArrayList<>();
     private final List<Card> discardPile = new ArrayList<>();
 
     public Deck () {
@@ -35,27 +34,12 @@ public class Deck {
         this.drawPile = new ArrayDeque<Card>(freshCards);
     }
 
-    public void fillRoom () {
-        while (Array.getLength(this.dungeonRoom) < 4) {
-            this.dungeonRoom.add(this.drawPile.remove());
-        }
+    public void drawCard () {
+        this.dungeonRoom.add(this.drawPile.remove());
     }
 
-    public void displayRoom () {
-        System.out.println("Current Dungeon Room:");
-        System.out.println(this.dungeonRoom);
-    }
-
-    public void dodgeRoom () {
-        for (Card c : this.dungeonRoom) {
-            this.drawPile.add(c);
-        }
-
-        this.dungeonRoom.clear();
-
-        for (int i = 0; i < 4; i++) {
-            this.dungeonRoom.add(this.drawPile.remove());
-        }
+    public void putInBottom (Card c) {
+        this.drawPile.add(c);
     }
 
     public Card chooseCardFromRoom (int idx) {
