@@ -88,7 +88,9 @@ public class GameState {
                 }
             }
             case Potion p -> {
-                if (!this.usedPotion) {
+                // the final card of the dungeon is not drunk — its value is added
+                // once, at scoring (getScore), so a last potion never counts twice
+                if (!deck.isEmpty() && !this.usedPotion) {
                     this.usedPotion = true;
                     player.drinkPotion(p);
                 }
