@@ -24,7 +24,7 @@ public class GameState {
     }
 
     public boolean isOver () {
-        return player.isAlive() || deck.isEmpty();
+        return !player.isAlive() || deck.isEmpty();
     }
 
     public boolean isRoomComplete () {
@@ -56,9 +56,7 @@ public class GameState {
             iter.remove();
         }
 
-        for (int i = 0; i < 4; i++) {
-            deck.drawCard();
-        }
+        this.fillRoom();
     }
 
     public void fightCard(int idx, Attack attackChoice) {
