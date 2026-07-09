@@ -1,0 +1,62 @@
+package com.example.project;
+
+import java.util.Iterator;
+
+/*
+ * A class which handles the current game state.
+ *
+ * Methods in this class are possible actions in the game
+ * that can modify game state.
+ */
+public class GameState {
+    private Deck deck;
+    private Player player;
+    private ConsoleInput console;
+
+    private boolean usedPotion;
+    private boolean dodgedRoom;
+
+    public GameState () {
+        this.deck = new Deck();
+        this.player = new Player();
+        this.console = new ConsoleInput();
+        
+        this.usedPotion = false;
+        this.dodgedRoom = false;
+    }
+
+    public void fillRoom () {
+        while (deck.getRoom().size() < 4) {
+            deck.drawCard();
+        }
+    }
+
+    public void dodgeRoom () {
+        this.dodgedRoom = true;
+
+        Iterator<Card> iter = deck.getRoom().iterator();
+        while (iter.hasNext()) {
+            Card c = iter.next();
+            deck.putInBottom(c);
+            iter.remove();
+        }
+
+        for (int i = 0; i < 4; i++) {
+            deck.drawCard();
+        }
+    }
+
+    public void fightCard(int idx) {
+        Card c = deck.chooseCardFromRoom(idx);
+        
+        // not antipattern to check type of card here
+        // since there is no unifying action the respective
+        // cards can take
+        switch (c) {
+            case Monster m -> continue;
+            case Weapon w -> continue;
+            case Potion p -> continue;
+            default -> continue;
+        }
+    }
+}
