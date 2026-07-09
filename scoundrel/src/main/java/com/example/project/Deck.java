@@ -51,4 +51,8 @@ public class Deck {
     public void putInDiscard (Card c) {
         this.discardPile.add(c);
     }
+
+    public List<Card> getRoom () {
+        return this.dungeonRoom;
+    }
 }
