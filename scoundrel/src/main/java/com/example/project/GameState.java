@@ -11,7 +11,6 @@ import java.util.Iterator;
 public class GameState {
     private Deck deck;
     private Player player;
-    private ConsoleInput console;
 
     private boolean usedPotion;
     private boolean dodgedRoom;
@@ -19,7 +18,6 @@ public class GameState {
     public GameState () {
         this.deck = new Deck();
         this.player = new Player();
-        this.console = new ConsoleInput();
         
         this.usedPotion = false;
         this.dodgedRoom = false;
@@ -53,10 +51,23 @@ public class GameState {
         // since there is no unifying action the respective
         // cards can take
         switch (c) {
-            case Monster m -> continue;
-            case Weapon w -> continue;
-            case Potion p -> continue;
-            default -> continue;
+            case Monster m -> {
+                continue;
+            };
+            case Weapon w -> {
+                Weapon oldWeapon = player.getWeapon();
+                player.equipWeapon(w);
+                if (oldWeapon != null) {
+                    deck.putInDiscard(oldWeapon);
+                }
+            }
+            case Potion p -> {
+                if (!this.usedPotion) {
+                    this.usedPotion = true;
+                    player.drinkPotion(p);
+                }
+                deck.putInDiscard(p);
+            }
         }
     }
 }
