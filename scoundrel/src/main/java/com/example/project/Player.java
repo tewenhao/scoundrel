@@ -18,6 +18,10 @@ public class Player {
         return this.health > 0;
     }
 
+    public Weapon getWeapon () {
+        return this.equippedWeapon;
+    } 
+
     public void equipWeapon (Weapon weapon) {
         this.equippedWeapon = weapon;
     }
