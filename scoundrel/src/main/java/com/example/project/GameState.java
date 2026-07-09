@@ -91,4 +91,10 @@ public class GameState {
             }
         }
     }
+
+    public void startnewRoom () {
+        this.usedPotion = false;
+        this.dodgedRoom = false;
+        this.fillRoom();
+    }
 }
