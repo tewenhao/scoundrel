@@ -48,6 +48,7 @@ public class GameState {
 
     public void dodgeRoom () {
         this.dodgedRoom = true;
+        this.usedPotion = false;
 
         Iterator<Card> iter = deck.getRoom().iterator();
         while (iter.hasNext()) {
