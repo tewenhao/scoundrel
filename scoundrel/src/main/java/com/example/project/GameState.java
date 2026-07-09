@@ -23,10 +23,27 @@ public class GameState {
         this.dodgedRoom = false;
     }
 
+    public boolean isOver () {
+        return player.isAlive() || deck.isEmpty();
+    }
+
+    public boolean isRoomComplete () {
+        if (deck.emptyDrawPile()) {
+            return deck.emptyRoom();
+        }
+        else {
+            return deck.getRoom().size() == 1;
+        }
+    }
+
     public void fillRoom () {
         while (deck.getRoom().size() < 4) {
             deck.drawCard();
         }
+    }
+
+    public boolean canDodge () {
+        return !this.dodgedRoom;
     }
 
     public void dodgeRoom () {
@@ -44,7 +61,7 @@ public class GameState {
         }
     }
 
-    public void fightCard(int idx) {
+    public void fightCard(int idx, Attack attackChoice) {
         Card c = deck.chooseCardFromRoom(idx);
         
         // not antipattern to check type of card here
@@ -52,8 +69,13 @@ public class GameState {
         // cards can take
         switch (c) {
             case Monster m -> {
-                continue;
-            };
+                if (attackChoice == Attack.WEAPON && player.hasWeapon() && player.getWeapon().canSlay(m)) {
+                    player.attackMonsterWithWeapon(m);
+                } else {
+                    player.attackMonsterWithHands(m);
+                    deck.putInDiscard(m);
+                }
+            }
             case Weapon w -> {
                 Weapon oldWeapon = player.getWeapon();
                 player.equipWeapon(w);
