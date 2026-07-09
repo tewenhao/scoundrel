@@ -1,6 +1,6 @@
 package com.example.project;
 
-public abstract class Card {
+public sealed abstract class Card permits Monster, Potion, Weapon {
     private CardSuit cardSuit;
     private int orderedValue;
 

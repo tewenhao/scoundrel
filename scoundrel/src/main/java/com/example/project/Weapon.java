@@ -6,7 +6,7 @@ import java.util.List;
 /*
  * The 9 Diamonds in the deck are Weapons. Red face cards are removed from the deck.
 */
-public class Weapon extends Card {
+public non-sealed class Weapon extends Card {
     private int lowestMonsterAttacked;
     private List<Monster> slainMonsters = new ArrayList<>(); // game requires weapon slain monsters to be stacked on top of weapon
 
