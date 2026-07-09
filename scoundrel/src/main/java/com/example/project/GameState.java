@@ -37,7 +37,7 @@ public class GameState {
     }
 
     public void fillRoom () {
-        while (deck.getRoom().size() < 4) {
+        while (!deck.emptyDrawPile() && deck.getRoom().size() < 4) {
             deck.drawCard();
         }
     }
