@@ -34,6 +34,18 @@ public class Deck {
         this.drawPile = new ArrayDeque<Card>(freshCards);
     }
 
+    public boolean emptyDrawPile () {
+        return this.drawPile.size() == 0;
+    }
+
+    public boolean emptyRoom () {
+        return this.dungeonRoom.size() == 0;
+    }
+
+    public boolean isEmpty () {
+        return this.emptyDrawPile() && this.emptyRoom();
+    }
+
     public void drawCard () {
         this.dungeonRoom.add(this.drawPile.remove());
     }

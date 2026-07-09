@@ -18,6 +18,10 @@ public class Player {
         return this.health > 0;
     }
 
+    public boolean hasWeapon () {
+        return this.equippedWeapon != null;
+    }
+
     public Weapon getWeapon () {
         return this.equippedWeapon;
     } 
