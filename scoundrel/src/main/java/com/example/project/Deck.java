@@ -67,4 +67,20 @@ public class Deck {
     public List<Card> getRoom () {
         return this.dungeonRoom;
     }
+
+    // total ordered value of every monster still in the dungeon (draw pile + room)
+    public int remainingMonsterValue () {
+        int total = 0;
+        for (Card c : this.drawPile) {
+            if (c instanceof Monster) {
+                total += c.getOrderedValue();
+            }
+        }
+        for (Card c : this.dungeonRoom) {
+            if (c instanceof Monster) {
+                total += c.getOrderedValue();
+            }
+        }
+        return total;
+    }
 }

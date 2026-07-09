@@ -97,6 +97,7 @@ public class ConsoleGame {
         } else {
             System.out.println("You died in the dungeon. Game over.");
         }
+        System.out.println("Final score: " + game.getScore());
         System.out.println("========================================");
     }
 }

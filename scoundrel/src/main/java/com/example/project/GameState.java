@@ -17,6 +17,8 @@ public class GameState {
     private boolean usedPotion;
     private boolean dodgedRoom;
 
+    private Card lastCardPlayed; // the final card decides the win-with-potion bonus
+
     public GameState () {
         this.deck = new Deck();
         this.player = new Player();
@@ -64,7 +66,8 @@ public class GameState {
 
     public void fightCard(int idx, Attack attackChoice) {
         Card c = deck.chooseCardFromRoom(idx);
-        
+        this.lastCardPlayed = c;
+
         // not antipattern to check type of card here
         // since there is no unifying action the respective
         // cards can take
@@ -121,5 +124,19 @@ public class GameState {
         return deck.getRoom().get(idx) instanceof Monster m
             && player.hasWeapon()
             && player.getWeapon().canSlay(m);
+    }
+
+    // scoring — only meaningful once isOver() is true.
+    // won   -> remaining health, plus the last card's value if it was a potion
+    // died  -> health minus the value of every monster left undefeated (negative)
+    public int getScore () {
+        if (player.isAlive()) {
+            int score = player.getHealth();
+            if (lastCardPlayed instanceof Potion p) {
+                score += p.getOrderedValue();
+            }
+            return score;
+        }
+        return player.getHealth() - deck.remainingMonsterValue();
     }
 }
