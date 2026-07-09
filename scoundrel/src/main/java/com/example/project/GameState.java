@@ -1,6 +1,8 @@
 package com.example.project;
 
 import java.util.Iterator;
+import java.util.List;
+import java.util.Collections;
 
 /*
  * A class which handles the current game state.
@@ -92,9 +94,32 @@ public class GameState {
         }
     }
 
-    public void startnewRoom () {
+    // called after a room is fought down to its carry-over card:
+    // clears the turn flags and deals the next room
+    public void startNextRoom () {
         this.usedPotion = false;
         this.dodgedRoom = false;
         this.fillRoom();
+    }
+
+    // ---- read-only surface for the front-end to render ----
+
+    public int getPlayerHealth () {
+        return player.getHealth();
+    }
+
+    public Weapon getEquippedWeapon () {
+        return player.getWeapon();
+    }
+
+    public List<Card> getRoom () {
+        return Collections.unmodifiableList(deck.getRoom());
+    }
+
+    // true only when the card at idx is a Monster the equipped weapon may legally slay
+    public boolean canUseWeaponOn (int idx) {
+        return deck.getRoom().get(idx) instanceof Monster m
+            && player.hasWeapon()
+            && player.getWeapon().canSlay(m);
     }
 }
