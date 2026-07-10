@@ -25,4 +25,8 @@ public sealed abstract class Card permits Monster, Potion, Weapon {
     public int getOrderedValue() {
         return orderedValue;
     }
+
+    public CardSuit getCardSuit() {
+        return this.cardSuit;
+    }
 }
